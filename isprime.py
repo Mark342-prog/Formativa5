@@ -17,22 +17,25 @@ def Primos_N(n):
     # Imprimir los números primos
     primes = [p for p in range(2, n + 1) if prime[p]]
     print(*primes)
-
+    
+#Ejercicio 2
 # Función para determinar si un número n es primo utilizando la criba
-def isprime(n):
-    if n <= 1:
-        return f"El número {n} no es primo."
-    
-    # Generar todos los primos hasta √n
-    primos = criba_eratostenes(int(math.sqrt(n)))
-    
-    # Verificar si n es divisible por alguno de los primos
-    for primo in primos:
-        if n % primo == 0:
-            return f"El número {n} no es primo, pues lo divide {primo}."
-    
-    return f"El número {n} es primo."
-#Requisitos de la función eucliodiano
+def is_prime(N):
+    if N < 2:
+        return False
+
+    # Inicializamos una lista de booleanos para los números desde 0 hasta N.
+    prime = [True] * (N + 1)
+    prime[0] = prime[1] = False
+
+    # Criba de Eratóstenes
+    for p in range(2, int(math.sqrt(N)) + 1):
+        if prime[p]:
+            for i in range(p * p, N + 1, p):
+                prime[i] = False
+
+    # El valor de prime[N] nos indicará si N es primo
+    return prime[N]
 
 # Función principal para probar con varios números
 def main():
@@ -41,7 +44,7 @@ def main():
             n = int(input("Ingrese un entero positivo n (o -1 para salir): "))
             if n == -1:
                 break
-            print(isprime(n))
+            print(is_prime(n))
         except ValueError:
             print("Por favor, ingrese un número entero válido.")
 
