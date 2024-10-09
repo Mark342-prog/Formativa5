@@ -1,29 +1,16 @@
 import math
 
 # Función para generar números primos hasta un límite usando la criba de Eratóstenes
-def Cadena_primos(n):
-    if n < 2:
-        return
-
-    prime = [True] * (n + 1)
-    prime[0] = prime[1] = False
-
-    for p in range(2, int(math.sqrt(n)) + 1):
-        if prime[p]:
-            # Marcar los múltiplos de p como no primos, comenzando desde p^2.
-            for i in range(p * p, n + 1, p):
-                prime[i] = False
-
-    # Imprimir los números primos
-    primes = [p for p in range(2, n + 1) if prime[p]]
-    print(*primes)
-
-
-# Driver Code
-if __name__ == "__main__":
-    srt = 3
-    end = 10
-    SieveOfEratosthenes(srt, end)
+def criba_eratostenes(limite):
+    es_primo = [True] * (limite + 1)
+    es_primo[0] = es_primo[1] = False  # 0 y 1 no son primos
+    
+    for i in range(2, int(math.sqrt(limite)) + 1):
+        if es_primo[i]:
+            for j in range(i * i, limite + 1, i):
+                es_primo[j] = False
+    
+    return [i for i, primo in enumerate(es_primo) if primo]
 
 # Función para determinar si un número n es primo utilizando la criba
 def isprime(n):
